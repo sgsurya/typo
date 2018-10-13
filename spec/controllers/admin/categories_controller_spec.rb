@@ -15,6 +15,19 @@ describe Admin::CategoriesController do
     get :index
     assert_response :redirect, :action => 'index'
   end
+  
+  it "should see new category page" do
+    get :new
+    assert_template 'new'
+  end
+  
+  it 'should create new category' do
+      post :edit, :category => {:name => "test1", :keywords => "test2", :permalink => "test3", :description =>"test4"}
+      assert_response :redirect, :action => 'index'
+      expect(flash[:notice]).to eq("Category was successfully saved.")
+      expect(assigns(:category)).not_to be_nil
+  end
+  
 
   describe "test_edit" do
     before(:each) do
